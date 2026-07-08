@@ -229,6 +229,27 @@
   .foot-links a:hover { border-color: var(--pink); color: var(--pink); }
   .foot-note { font-size: 12px; color: var(--muted); font-weight: 500; }
 
+  /* wallet select modal */
+  .wallet-modal-overlay { position: fixed; inset: 0; background: rgba(10,6,18,0.75); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 20; padding: 20px; }
+  .wallet-modal-overlay.show { display: flex; }
+  .wallet-modal { background: var(--paper); color: var(--ink); border: 3px solid var(--ink); padding: 26px; width: 100%; max-width: 380px; border-radius: 24px 8px 24px 8px; box-shadow: 8px 8px 0 var(--pink); }
+  .wallet-modal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+  .wallet-modal h3 { font-family: 'Anton'; font-size: 20px; letter-spacing: 0.01em; }
+  .wallet-modal-close { background: none; border: none; font-family: 'JetBrains Mono'; font-size: 20px; font-weight: 700; color: var(--ink); cursor: pointer; line-height: 1; padding: 4px 8px; }
+  .wallet-modal-sub { font-family: 'JetBrains Mono'; font-size: 11px; color: #6a5c85; font-weight: 600; margin-bottom: 18px; }
+  .wallet-list { display: flex; flex-direction: column; gap: 10px; }
+  .wallet-row {
+    display: flex; align-items: center; gap: 13px; width: 100%; text-align: left;
+    background: rgba(21,14,34,0.04); border: 2px solid rgba(21,14,34,0.14); border-radius: 14px;
+    padding: 12px 14px; cursor: pointer; font-family: 'Space Grotesk'; font-weight: 700; font-size: 14px; color: var(--ink);
+    transition: transform 0.1s, border-color 0.15s, background 0.15s;
+  }
+  .wallet-row:hover { border-color: var(--ink); background: rgba(214,255,61,0.18); transform: translateX(2px); }
+  .wallet-row:active { transform: translateX(2px) scale(0.99); }
+  .wallet-icon { width: 34px; height: 34px; border-radius: 50% 50% 50% 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; flex-shrink: 0; border: 2px solid var(--ink); }
+  .wallet-row-name { flex: 1; }
+  .wallet-row-tag { font-family: 'JetBrains Mono'; font-size: 10px; font-weight: 700; color: #6a5c85; text-transform: uppercase; }
+
   .admin-toggle { position: fixed; bottom: 18px; right: 18px; z-index: 5; background: var(--ink); border: 2px solid var(--line); color: var(--muted); font-size: 11px; font-family: 'JetBrains Mono'; font-weight: 700; padding: 9px 15px; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; border-radius: 30px; }
   .admin-toggle:hover { opacity: 1; }
   .admin-panel { position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(3px); display: none; align-items: center; justify-content: center; z-index: 10; padding: 20px; }
@@ -365,6 +386,17 @@
   </footer>
 </div>
 
+<div class="wallet-modal-overlay" id="walletModalOverlay">
+  <div class="wallet-modal">
+    <div class="wallet-modal-head">
+      <h3>Connect a wallet</h3>
+      <button class="wallet-modal-close" id="walletModalClose">×</button>
+    </div>
+    <div class="wallet-modal-sub">Choose your wallet to mint on Arc mainnet</div>
+    <div class="wallet-list" id="walletList"></div>
+  </div>
+</div>
+
 <button class="admin-toggle" id="adminToggle">admin</button>
 <div class="admin-panel" id="adminPanel">
   <div class="admin-box">
@@ -421,13 +453,55 @@ function randHex(len) {
   for (let i = 0; i < len; i++) s += chars[Math.floor(Math.random() * 16)];
   return s;
 }
+const WALLET_OPTIONS = [
+  { id: 'metamask', name: 'MetaMask', icon: '🦊', bg: '#FF7A3D', tag: 'Popular' },
+  { id: 'rabby', name: 'Rabby', icon: '🐰', bg: '#8C5CFF' },
+  { id: 'zerion', name: 'Zerion', icon: '🌀', bg: '#FF2E7E' },
+  { id: 'keplr', name: 'Keplr', icon: '⚛️', bg: '#D6FF3D' },
+  { id: 'coinbase', name: 'Coinbase Wallet', icon: '🔵', bg: '#8C5CFF' },
+  { id: 'walletconnect', name: 'WalletConnect', icon: '🔗', bg: '#FF7A3D' },
+];
+
 let wallet = null;
+let walletProvider = null;
 const walletBtn = document.getElementById('walletBtn');
+const walletModalOverlay = document.getElementById('walletModalOverlay');
+const walletList = document.getElementById('walletList');
+const walletModalClose = document.getElementById('walletModalClose');
+
+walletList.innerHTML = WALLET_OPTIONS.map(w => `
+  <button class="wallet-row" data-id="${w.id}">
+    <span class="wallet-icon" style="background:${w.bg};">${w.icon}</span>
+    <span class="wallet-row-name">${w.name}</span>
+    ${w.tag ? `<span class="wallet-row-tag">${w.tag}</span>` : ''}
+  </button>
+`).join('');
+
+let walletModalResolver = null;
+function openWalletModal() {
+  walletModalOverlay.classList.add('show');
+  return new Promise(resolve => { walletModalResolver = resolve; });
+}
+function closeWalletModal(result) {
+  walletModalOverlay.classList.remove('show');
+  if (walletModalResolver) { walletModalResolver(result || null); walletModalResolver = null; }
+}
+walletList.addEventListener('click', (e) => {
+  const row = e.target.closest('.wallet-row');
+  if (!row) return;
+  const provider = WALLET_OPTIONS.find(w => w.id === row.dataset.id);
+  closeWalletModal(provider);
+});
+walletModalClose.addEventListener('click', () => closeWalletModal(null));
+walletModalOverlay.addEventListener('click', (e) => {
+  if (e.target === walletModalOverlay) closeWalletModal(null);
+});
 
 function renderWalletBtn() {
   if (wallet) {
     walletBtn.classList.add('connected');
-    walletBtn.innerHTML = '<span class="dot"></span>' + wallet;
+    const icon = walletProvider ? walletProvider.icon + ' ' : '';
+    walletBtn.innerHTML = '<span class="dot"></span>' + icon + wallet;
   } else {
     walletBtn.classList.remove('connected');
     walletBtn.textContent = 'Connect Wallet';
@@ -435,16 +509,20 @@ function renderWalletBtn() {
   updateMintCtaLabel();
 }
 
-function connectWallet() {
+function connectWallet(provider) {
+  walletProvider = provider || null;
   wallet = '0x' + randHex(4) + '\u2026' + randHex(4);
   renderWalletBtn();
 }
 function disconnectWallet() {
   wallet = null;
+  walletProvider = null;
   renderWalletBtn();
 }
-walletBtn.addEventListener('click', () => {
-  if (wallet) { disconnectWallet(); } else { connectWallet(); }
+walletBtn.addEventListener('click', async () => {
+  if (wallet) { disconnectWallet(); return; }
+  const provider = await openWalletModal();
+  if (provider) connectWallet(provider);
 });
 
 /* ---------------- MINT ---------------- */
@@ -512,10 +590,18 @@ mintBtn.addEventListener('click', async () => {
   mintBtn.disabled = true;
   try {
     if (!wallet) {
-      mintNote.textContent = 'Connecting wallet…';
+      const provider = await openWalletModal();
+      if (!provider) {
+        mintNote.textContent = 'Pick a wallet to continue.';
+        mintNote.className = 'form-note err';
+        mintBtn.disabled = false;
+        updateMintCtaLabel();
+        return;
+      }
+      mintNote.textContent = `Connecting ${provider.name}…`;
       mintNote.className = 'form-note';
-      await sleep(600);
-      connectWallet();
+      await sleep(500);
+      connectWallet(provider);
     }
     mintNote.textContent = 'Minting…';
     mintNote.className = 'form-note';
