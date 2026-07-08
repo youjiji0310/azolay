@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nova Foundry — Minting on Base</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FFF6E9;
+    --ink: #1A1033;
+    --pink: #FF4D8D;
+    --yellow: #FFD23F;
+    --cyan: #17C3D6;
+    --green: #3ECF8E;
+    --purple: #7C5CFF;
+    --muted: #6B6280;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    background-image: radial-gradient(circle, rgba(26,16,51,0.08) 1.4px, transparent 1.4px);
+    background-size: 22px 22px;
+  }
+  .display { font-family: 'Fredoka', sans-serif; }
+  .mono { font-family: 'Space Mono', monospace; }
+
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  .panel {
+    border: 3px solid var(--ink);
+    border-radius: 20px;
+    box-shadow: 6px 6px 0 var(--ink);
+    background: var(--white);
+  }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 26px 0;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--pink); border: 3px solid var(--ink);
+    box-shadow: 3px 3px 0 var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Fredoka'; font-weight: 700; font-size: 18px; color: var(--white);
+    transform: rotate(-6deg);
+  }
+  .brand-name { font-family: 'Fredoka'; font-weight: 700; font-size: 19px; }
+  .chain-pill {
+    display: flex; align-items: center; gap: 7px;
+    background: var(--cyan); border: 3px solid var(--ink); border-radius: 100px;
+    padding: 7px 16px; font-family: 'Space Mono'; font-size: 12px; font-weight: 700;
+    box-shadow: 3px 3px 0 var(--ink);
+    transform: rotate(2deg);
+  }
+  .chain-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); }
+
+  .hero { padding: 56px 0 40px; text-align: center; position: relative; }
+  .badge-row {
+    display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+  .badge {
+    font-family: 'Space Mono'; font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: var(--yellow); border: 2.5px solid var(--ink); border-radius: 100px;
+    padding: 7px 14px; box-shadow: 3px 3px 0 var(--ink);
+  }
+  .badge:nth-child(2) { background: var(--pink); color: var(--white); transform: rotate(-3deg); }
+  .badge:nth-child(3) { background: var(--purple); color: var(--white); transform: rotate(2deg); }
+
+  h1.display {
+    font-size: clamp(40px, 8vw, 82px);
+    line-height: 0.98;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  h1.display .hl {
+    color: var(--pink);
+    display: inline-block;
+    transform: rotate(-2deg);
+    position: relative;
+  }
+  h1.display .hl2 {
+    color: var(--white);
+    -webkit-text-stroke: 2px var(--ink);
+    text-stroke: 2px var(--ink);
+  }
+
+  .sub {
+    max-width: 520px; margin: 0 auto 36px;
+    color: var(--muted); font-size: 17px; line-height: 1.6; font-weight: 500;
+  }
+
+  .form-row {
+    display: flex; gap: 10px; max-width: 460px; margin: 0 auto 14px;
+  }
+  .form-row input {
+    flex: 1; background: var(--white); border: 3px solid var(--ink);
+    border-radius: 12px; padding: 14px 16px; color: var(--ink);
+    font-family: 'DM Sans'; font-weight: 500; font-size: 14px; outline: none;
+  }
+  .form-row input::placeholder { color: #A69FB5; }
+  button.cta {
+    background: var(--green); color: var(--ink); border: 3px solid var(--ink);
+    border-radius: 12px; padding: 14px 24px; font-family: 'Fredoka';
+    font-weight: 600; font-size: 15px; cursor: pointer; white-space: nowrap;
+    box-shadow: 4px 4px 0 var(--ink);
+    transition: transform 0.08s, box-shadow 0.08s;
+  }
+  button.cta:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 var(--ink); }
+  button.cta:active { transform: translate(3px,3px); box-shadow: 1px 1px 0 var(--ink); }
+  button.cta:disabled { opacity: 0.5; cursor: default; }
+  .form-note { font-size: 13px; font-weight: 700; text-align: center; min-height: 20px; }
+  .form-note.ok { color: #1D9C68; }
+  .form-note.err { color: #E0316B; }
+
+  .gauge-section { padding: 20px 0 60px; }
+  .gauge-card {
+    padding: 26px 30px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    background: var(--purple); color: var(--white);
+    transform: rotate(-0.6deg);
+  }
+  .gauge-info { flex: 1; min-width: 200px; }
+  .gauge-label { font-family: 'Space Mono'; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.8; margin-bottom: 8px; }
+  .gauge-track {
+    height: 20px; border: 2.5px solid var(--ink); border-radius: 100px;
+    background: rgba(255,255,255,0.25); overflow: hidden;
+  }
+  .gauge-fill {
+    height: 100%; background: var(--yellow); border-radius: 100px;
+    width: 0%; transition: width 0.6s ease;
+  }
+  .gauge-supply-line { text-align: center; }
+  .gauge-supply-line .n { font-family: 'Fredoka'; font-size: 34px; font-weight: 700; color: var(--yellow); line-height: 1; }
+  .gauge-supply-line .l { font-family: 'Space Mono'; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.85; }
+
+  .section-head { margin: 0 0 30px; text-align: center; }
+  .section-eyebrow {
+    display: inline-block; font-family: 'Space Mono'; font-size: 11px; font-weight: 700;
+    background: var(--ink); color: var(--paper); text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 5px 12px; border-radius: 100px; margin-bottom: 12px; transform: rotate(-1deg);
+  }
+  .section-title { font-family: 'Fredoka'; font-size: 30px; font-weight: 700; }
+
+  .phases { padding: 10px 0 70px; }
+  .phase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .p-card {
+    padding: 24px; position: relative; transition: transform 0.15s;
+  }
+  .p-card:hover { transform: translateY(-4px); }
+  .p-card:nth-child(1) { background: var(--yellow); transform: rotate(-1.5deg); }
+  .p-card:nth-child(1):hover { transform: rotate(-1.5deg) translateY(-4px); }
+  .p-card:nth-child(2) { background: var(--cyan); transform: rotate(1deg); }
+  .p-card:nth-child(2):hover { transform: rotate(1deg) translateY(-4px); }
+  .p-card:nth-child(3) { background: #E8E3F8; transform: rotate(-0.5deg); }
+  .p-card:nth-child(3):hover { transform: rotate(-0.5deg) translateY(-4px); }
+  .p-num {
+    font-family: 'Fredoka'; font-size: 40px; font-weight: 700; line-height: 1;
+    -webkit-text-stroke: 2px var(--ink); color: var(--paper);
+  }
+  .p-lab { font-family: 'Space Mono'; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin: 6px 0 14px; }
+  .p-title { font-family: 'Fredoka'; font-weight: 600; font-size: 19px; margin-bottom: 8px; }
+  .p-desc { font-size: 13px; color: var(--ink); opacity: 0.75; line-height: 1.5; margin-bottom: 16px; min-height: 55px; }
+  .status-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Space Mono'; font-size: 11px; font-weight: 700; text-transform: uppercase;
+    padding: 6px 13px; border-radius: 100px; border: 2.5px solid var(--ink);
+  }
+  .status-open { background: var(--green); }
+  .status-locked { background: var(--white); opacity: 0.7; }
+  .status-open .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ink); animation: pulse 1.4s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .faq { padding: 10px 0 80px; }
+  .faq-item { margin-bottom: 14px; padding: 4px 22px; }
+  .faq-q {
+    width: 100%; background: none; border: none; color: var(--ink);
+    font-family: 'Fredoka'; font-size: 16px; font-weight: 600;
+    text-align: left; padding: 16px 0; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .faq-q .plus {
+    font-family: 'Space Mono'; font-weight: 700; font-size: 18px; flex-shrink: 0;
+    width: 28px; height: 28px; border: 2.5px solid var(--ink); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; background: var(--yellow);
+    transition: transform 0.2s;
+  }
+  .faq-item.open .plus { transform: rotate(45deg); background: var(--pink); }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.25s ease; }
+  .faq-a-inner { padding-bottom: 18px; max-width: 620px; font-size: 14px; color: var(--muted); line-height: 1.6; font-weight: 500; }
+  .faq-item.open .faq-a { max-height: 200px; }
+
+  footer {
+    padding: 30px 0 44px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+  }
+  .foot-links { display: flex; gap: 20px; }
+  .foot-links a {
+    color: var(--ink); text-decoration: none; font-family: 'Space Mono'; font-size: 12px; font-weight: 700;
+    background: var(--white); border: 2px solid var(--ink); border-radius: 100px; padding: 6px 14px;
+  }
+  .foot-note { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+  .admin-toggle {
+    position: fixed; bottom: 18px; right: 18px; z-index: 5;
+    background: var(--ink); border: 2.5px solid var(--ink); color: var(--paper);
+    font-size: 11px; font-family: 'Space Mono'; font-weight: 700; padding: 8px 14px; border-radius: 100px;
+    cursor: pointer; opacity: 0.55; transition: opacity 0.2s;
+  }
+  .admin-toggle:hover { opacity: 1; }
+  .admin-panel {
+    position: fixed; inset: 0; background: rgba(26,16,51,0.65); backdrop-filter: blur(3px);
+    display: none; align-items: center; justify-content: center; z-index: 10; padding: 20px;
+  }
+  .admin-panel.show { display: flex; }
+  .admin-box {
+    background: var(--white); border: 3px solid var(--ink); border-radius: 18px; box-shadow: 6px 6px 0 var(--ink);
+    padding: 26px; width: 100%; max-width: 420px; max-height: 80vh; overflow-y: auto;
+  }
+  .admin-box h3 { font-family: 'Fredoka'; margin-bottom: 14px; font-size: 17px; }
+  .admin-box input {
+    width: 100%; background: var(--paper); border: 2.5px solid var(--ink); border-radius: 10px;
+    padding: 10px 12px; color: var(--ink); margin-bottom: 10px; font-size: 13px;
+  }
+  .admin-list { margin-top: 14px; border-top: 2px dashed var(--ink); padding-top: 12px; }
+  .admin-entry { font-family: 'Space Mono'; font-size: 12px; color: var(--muted); padding: 6px 0; border-bottom: 1px dashed #ccc; }
+  .admin-close { display: block; margin-top: 14px; background: var(--paper); border: 2.5px solid var(--ink); color: var(--ink); border-radius: 10px; padding: 9px; width: 100%; cursor: pointer; font-size: 12px; font-weight: 700; font-family: 'Space Mono'; }
+
+  @media (max-width: 720px) {
+    .phase-grid { grid-template-columns: 1fr; }
+    .p-card, .p-card:hover { transform: none !important; }
+  }
+  @media (max-width: 600px) {
+    .form-row { flex-direction: column; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .gauge-card { flex-direction: column; align-items: stretch; text-align: center; }
+  }
+
+  :focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav>
+    <div class="brand">
+      <div class="brand-mark">N</div>
+      <div class="brand-name">NOVA FOUNDRY</div>
+    </div>
+    <div class="chain-pill"><span class="chain-dot"></span> BASE</div>
+  </nav>
+
+  <section class="hero">
+    <div class="badge-row">
+      <span class="badge">1,000 supply</span>
+      <span class="badge">3 phases</span>
+      <span class="badge">Base chain</span>
+    </div>
+    <h1 class="display">Not <span class="hl">live</span> yet.<br>Get in <span class="hl2">early</span>.</h1>
+    <p class="sub">Nova Foundry is a 1,000-piece collection being forged for Base. No contract yet — join the whitelist and your spot carries straight through to mint day.</p>
+
+    <form class="form-row" id="waitlistForm">
+      <input type="text" id="contactInput" placeholder="Email or wallet address" required />
+      <button type="submit" class="cta" id="submitBtn">Join whitelist 🔥</button>
+    </form>
+    <div class="form-note" id="formNote">&nbsp;</div>
+  </section>
+
+  <section class="gauge-section">
+    <div class="panel gauge-card">
+      <div class="gauge-info">
+        <div class="gauge-label">Furnace status</div>
+        <div class="gauge-track"><div class="gauge-fill" id="gaugeFill"></div></div>
+      </div>
+      <div class="gauge-supply-line">
+        <div class="n" id="waitlistCount">0</div>
+        <div class="l">On the list</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="phases">
+    <div class="section-head">
+      <div class="section-eyebrow">Mint sequence</div>
+      <div class="section-title">Three phases, one drop</div>
+    </div>
+
+    <div class="phase-grid">
+      <div class="panel p-card">
+        <div class="p-num">01</div>
+        <div class="p-lab">Whitelist</div>
+        <div class="p-title">Join the list</div>
+        <div class="p-desc">Free to join. Locks in a reserved mint window before presale opens.</div>
+        <span class="status-pill status-open"><span class="dot"></span> Open</span>
+      </div>
+      <div class="panel p-card">
+        <div class="p-num">02</div>
+        <div class="p-lab">Presale</div>
+        <div class="p-title">Whitelist mint</div>
+        <div class="p-desc">0.015 ETH each · whitelist wallets only · 3 per wallet max.</div>
+        <span class="status-pill status-locked">Locked</span>
+      </div>
+      <div class="panel p-card">
+        <div class="p-num">03</div>
+        <div class="p-lab">Public</div>
+        <div class="p-title">Public mint</div>
+        <div class="p-desc">0.025 ETH each · open to everyone · while supply lasts.</div>
+        <span class="status-pill status-locked">Locked</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="section-head">
+      <div class="section-eyebrow">Details</div>
+      <div class="section-title">Questions</div>
+    </div>
+    <div class="panel" id="faqList" style="transform: rotate(0.4deg);"></div>
+  </section>
+
+  <footer>
+    <div class="foot-links">
+      <a href="#">X / Twitter</a>
+      <a href="#">Discord</a>
+      <a href="#">Basescan</a>
+    </div>
+    <div class="foot-note">Nova Foundry · placeholder project · replace before launch</div>
+  </footer>
+</div>
+
+<button class="admin-toggle" id="adminToggle">admin</button>
+<div class="admin-panel" id="adminPanel">
+  <div class="admin-box">
+    <h3>Waitlist admin</h3>
+    <input type="password" id="adminPass" placeholder="Passcode" />
+    <button class="cta" style="width:100%" id="adminUnlock">Unlock</button>
+    <div class="admin-list" id="adminList"></div>
+    <button class="admin-close" id="adminClose">Close</button>
+  </div>
+</div>
+
+<script>
+const faqData = [
+  { q: "What is Nova Foundry?", a: "A 1,000-piece collection being built for mint on Base. This page is the pre-launch waitlist — the smart contract itself hasn't been deployed yet." },
+  { q: "What chain does this mint on?", a: "Base, Coinbase's Ethereum L2. You'll need a Base-compatible wallet like Coinbase Wallet or MetaMask configured for Base." },
+  { q: "How do I join the whitelist?", a: "Drop your email or wallet address above. No payment or wallet connection required at this stage." },
+  { q: "When does public mint open?", a: "No date yet. Whitelist members hear first, before it's announced anywhere else." },
+  { q: "Is the contract live?", a: "Not yet — it's in development. Whitelist signups collected here carry over automatically once minting opens." },
+];
+
+const faqList = document.getElementById('faqList');
+faqData.forEach((item, i) => {
+  const el = document.createElement('div');
+  el.className = 'faq-item';
+  el.innerHTML = `
+    <button class="faq-q" data-i="${i}">
+      <span>${item.q}</span><span class="plus">+</span>
+    </button>
+    <div class="faq-a"><div class="faq-a-inner">${item.a}</div></div>
+  `;
+  faqList.appendChild(el);
+});
+faqList.addEventListener('click', (e) => {
+  const btn = e.target.closest('.faq-q');
+  if (!btn) return;
+  btn.closest('.faq-item').classList.toggle('open');
+});
+
+const GOAL = 500;
+
+async function refreshCount() {
+  try {
+    const res = await window.storage.list('waitlist:', true);
+    const count = res && res.keys ? res.keys.length : 0;
+    document.getElementById('waitlistCount').textContent = count;
+    const pct = Math.min(100, Math.round((count / GOAL) * 100));
+    document.getElementById('gaugeFill').style.width = pct + '%';
+    return count;
+  } catch (err) {
+    console.error('Could not load waitlist count', err);
+    return 0;
+  }
+}
+
+const form = document.getElementById('waitlistForm');
+const note = document.getElementById('formNote');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const input = document.getElementById('contactInput');
+  const value = input.value.trim();
+  if (!value) return;
+
+  submitBtn.disabled = true;
+  note.textContent = 'Saving…';
+  note.className = 'form-note';
+
+  try {
+    const key = 'waitlist:' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+    const result = await window.storage.set(key, JSON.stringify({
+      contact: value,
+      joined_at: new Date().toISOString()
+    }), true);
+
+    if (result) {
+      note.textContent = "You're on the list! 🎉";
+      note.className = 'form-note ok';
+      input.value = '';
+      await refreshCount();
+    } else {
+      throw new Error('no result');
+    }
+  } catch (err) {
+    console.error(err);
+    note.textContent = 'Something went wrong — try again.';
+    note.className = 'form-note err';
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+
+refreshCount();
+
+const ADMIN_PASS = 'foundry2026';
+const adminToggle = document.getElementById('adminToggle');
+const adminPanel = document.getElementById('adminPanel');
+const adminClose = document.getElementById('adminClose');
+const adminUnlock = document.getElementById('adminUnlock');
+const adminList = document.getElementById('adminList');
+
+adminToggle.addEventListener('click', () => adminPanel.classList.add('show'));
+adminClose.addEventListener('click', () => adminPanel.classList.remove('show'));
+
+adminUnlock.addEventListener('click', async () => {
+  const pass = document.getElementById('adminPass').value;
+  if (pass !== ADMIN_PASS) {
+    adminList.innerHTML = '<div class="admin-entry" style="color:#E0316B">Wrong passcode.</div>';
+    return;
+  }
+  adminList.innerHTML = '<div class="admin-entry">Loading…</div>';
+  try {
+    const res = await window.storage.list('waitlist:', true);
+    const keys = res && res.keys ? res.keys : [];
+    if (keys.length === 0) {
+      adminList.innerHTML = '<div class="admin-entry">No signups yet.</div>';
+      return;
+    }
+    const entries = [];
+    for (const k of keys) {
+      try {
+        const r = await window.storage.get(k, true);
+        if (r && r.value) {
+          const parsed = JSON.parse(r.value);
+          entries.push(parsed);
+        }
+      } catch (_) {}
+    }
+    entries.sort((a, b) => new Date(b.joined_at) - new Date(a.joined_at));
+    adminList.innerHTML = entries.map(e =>
+      `<div class="admin-entry">${e.contact} — ${new Date(e.joined_at).toLocaleString()}</div>`
+    ).join('');
+  } catch (err) {
+    adminList.innerHTML = '<div class="admin-entry" style="color:#E0316B">Could not load list.</div>';
+  }
+});
+</script>
+
+</body>
+</html>
