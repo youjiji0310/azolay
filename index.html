@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARC PUNKS — Public Mint on Arc Mainnet</title>
+<title>ARC PUNKS — Wallet + Waitlist on Arc Testnet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Permanent+Marker&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -277,8 +277,8 @@
 
 <div class="tape-strip">
   <div class="tape-track">
-    <span>PUBLIC MINT LIVE</span><span>NO WHITELIST</span><span>10,000 SUPPLY</span><span>ARC MAINNET</span><span>2.75 USDC</span><span>CONNECT & MINT</span>
-    <span>PUBLIC MINT LIVE</span><span>NO WHITELIST</span><span>10,000 SUPPLY</span><span>ARC MAINNET</span><span>2.75 USDC</span><span>CONNECT & MINT</span>
+    <span>WAITLIST LIVE</span><span>NO WHITELIST</span><span>10,000 SUPPLY</span><span>ARC TESTNET</span><span>2.75 USDC</span><span>CONNECT & JOIN</span>
+    <span>WAITLIST LIVE</span><span>NO WHITELIST</span><span>10,000 SUPPLY</span><span>ARC TESTNET</span><span>2.75 USDC</span><span>CONNECT & JOIN</span>
   </div>
 </div>
 
@@ -289,7 +289,7 @@
       <div class="brand-name">ARC<span class="p2">PUNKS</span></div>
     </div>
     <div class="nav-right">
-      <div class="chain-tag"><span class="dot"></span> Arc Mainnet</div>
+      <div class="chain-tag"><span class="dot"></span> Arc Testnet</div>
       <button class="wallet-btn" id="walletBtn">Connect Wallet</button>
     </div>
   </nav>
@@ -308,11 +308,11 @@
         <span class="badge">No whitelist</span>
       </div>
       <h1 class="disp">ARC <span class="accent-word">PUNKS</span><br>are OUT.</h1>
-      <p class="sub">10,000 hand-sprayed misfits, stamped straight onto <b>Arc mainnet</b> — Circle's USDC-native Layer-1. Connect a wallet and mint on the spot, first come first served. No signup, no whitelist, no waiting room.</p>
+      <p class="sub">10,000 hand-sprayed misfits, forged for <b>Arc</b> — Circle's USDC-native Layer-1. Connect a real wallet now on Arc Testnet; the moment Arc mainnet and the contract go live, this becomes the real mint. No signup, no whitelist, no waiting room.</p>
     </div>
 
     <div class="stat-strip">
-      <div class="stat-cell"><div class="n accent" id="mintedCount">0</div><div class="l">Minted</div></div>
+      <div class="stat-cell"><div class="n accent" id="mintedCount">0</div><div class="l">Waitlist</div></div>
       <div class="stat-cell"><div class="n">10,000</div><div class="l">Supply</div></div>
       <div class="stat-cell"><div class="n">2.75 USDC</div><div class="l">Price</div></div>
       <div class="stat-cell"><div class="n">5</div><div class="l">Max / wallet</div></div>
@@ -320,7 +320,7 @@
 
     <div class="mint-layout">
       <div class="sticker mint-card">
-        <div class="mint-tag">public mint — open ✌</div>
+        <div class="mint-tag">wallet + waitlist — open ✌</div>
         <div class="mint-price">2.75 <small>USDC / piece</small></div>
 
         <div class="qty-stepper">
@@ -334,7 +334,7 @@
         <div class="form-note" id="mintNote">&nbsp;</div>
 
         <div class="mint-meta">
-          Network: <b>Arc mainnet</b> · Gas: <b>USDC</b> · Contract: <b>deployed</b>
+          Network: <b>Arc Testnet</b> · Gas: <b>USDC</b> · Contract: <b>not yet deployed</b>
         </div>
       </div>
 
@@ -358,7 +358,7 @@
     <div class="hero">
       <div class="badge-row">
         <span class="badge">Secondary market</span>
-        <span class="badge">Arc mainnet</span>
+        <span class="badge">Arc Testnet</span>
         <span class="badge">USDC settlement</span>
       </div>
       <h2 class="disp" style="font-size:clamp(30px,5vw,44px); margin-bottom:14px;">Market</h2>
@@ -392,7 +392,7 @@
       <h3>Connect a wallet</h3>
       <button class="wallet-modal-close" id="walletModalClose">×</button>
     </div>
-    <div class="wallet-modal-sub">Choose your wallet to mint on Arc mainnet</div>
+    <div class="wallet-modal-sub">Choose your wallet — connects to Arc Testnet</div>
     <div class="wallet-list" id="walletList"></div>
   </div>
 </div>
@@ -425,9 +425,9 @@ tabBtns.forEach(btn => {
 /* ---------------- FAQ ---------------- */
 const faqData = [
   { q: "Is there a whitelist?", a: "No. Arc Punks mints 100% publicly — first come, first served. Connect a wallet and mint directly, no signup or task list required." },
-  { q: "What chain does this mint on?", a: "Arc mainnet — Circle's Layer-1 built specifically for stablecoin finance. It uses USDC as native gas instead of a volatile token, with sub-second finality." },
-  { q: "Is the contract live?", a: "Yes — the Arc Punks contract is deployed on Arc mainnet and minting is open right now." },
-  { q: "How many can I mint?", a: "5 per wallet, at 2.75 USDC each, while supply lasts. There's no separate presale tier." },
+  { q: "What chain does this mint on?", a: "Arc — Circle's EVM-compatible Layer-1 for stablecoin finance, using USDC as native gas. Arc mainnet hasn't launched yet, so this page connects you to Arc Testnet for now, exactly the same wallet flow that will run on mainnet." },
+  { q: "Is the contract live?", a: "Not yet. The Arc Punks contract hasn't been deployed. Connecting your wallet now puts you on a real waitlist so you're first in line the moment mint opens." },
+  { q: "How many can I mint?", a: "5 per wallet, at 2.75 USDC each, once mint is live. There's no separate presale tier." },
   { q: "What happens after mint?", a: "Every Punk becomes tradeable on the Market tab once listings go live on-chain. Rarity is fixed at mint and never changes." },
 ];
 const faqList = document.getElementById('faqList');
@@ -446,39 +446,86 @@ faqList.addEventListener('click', (e) => {
   btn.closest('.faq-item').classList.toggle('open');
 });
 
-/* ---------------- WALLET ---------------- */
-function randHex(len) {
-  let s = '';
-  const chars = '0123456789abcdef';
-  for (let i = 0; i < len; i++) s += chars[Math.floor(Math.random() * 16)];
-  return s;
-}
-const WALLET_OPTIONS = [
-  { id: 'metamask', name: 'MetaMask', icon: '🦊', bg: '#FF7A3D', tag: 'Popular' },
-  { id: 'rabby', name: 'Rabby', icon: '🐰', bg: '#8C5CFF' },
-  { id: 'zerion', name: 'Zerion', icon: '🌀', bg: '#FF2E7E' },
-  { id: 'keplr', name: 'Keplr', icon: '⚛️', bg: '#D6FF3D' },
-  { id: 'coinbase', name: 'Coinbase Wallet', icon: '🔵', bg: '#8C5CFF' },
-  { id: 'walletconnect', name: 'WalletConnect', icon: '🔗', bg: '#FF7A3D' },
-];
+/* ---------------- CONFIG ---------------- */
+// Arc Mainnet has not launched yet (Circle has only given a "2026" target, no published
+// chain ID / RPC as of today). Arc Testnet is real, live, and connectable right now, so
+// that's what we wire up for real. The instant Circle publishes official mainnet
+// parameters, swap the values below — nothing else in this file needs to change.
+const ARC_NETWORK = {
+  chainIdHex: '0x4CEF52',   // 5042002 — official Arc Testnet chain ID (docs.arc.io)
+  chainIdDec: 5042002,
+  chainName: 'Arc Testnet',
+  nativeCurrency: { name: 'USDC', symbol: 'USDC', decimals: 18 },
+  rpcUrls: ['https://rpc.testnet.arc.network'],
+  blockExplorerUrls: ['https://testnet.arcscan.app'],
+};
 
-let wallet = null;
-let walletProvider = null;
+// TODO: fill these in once the Arc Punks contract is deployed + verified on Arc.
+const CONTRACT_ADDRESS = null;
+const CONTRACT_ABI = [];
+
+/* ---------------- WALLET DISCOVERY (EIP-6963, real) ---------------- */
+// Every real installed EVM wallet (MetaMask, Rabby, Coinbase Wallet, Zerion, Rainbow...)
+// announces itself through this standard event. No hardcoded fake list — whatever the
+// visitor actually has installed shows up here.
+let discoveredWallets = []; // { info: { uuid, name, icon, rdns }, provider }
+window.addEventListener('eip6963:announceProvider', (event) => {
+  const { info, provider } = event.detail;
+  if (!discoveredWallets.some(w => w.info.uuid === info.uuid)) {
+    discoveredWallets.push({ info, provider });
+    renderWalletList();
+  }
+});
+window.dispatchEvent(new Event('eip6963:requestProvider'));
+
+let wallet = null;          // real connected address, once set
+let activeProvider = null;  // the real EIP-1193 provider in use
+let wrongNetwork = false;
+
 const walletBtn = document.getElementById('walletBtn');
 const walletModalOverlay = document.getElementById('walletModalOverlay');
 const walletList = document.getElementById('walletList');
 const walletModalClose = document.getElementById('walletModalClose');
 
-walletList.innerHTML = WALLET_OPTIONS.map(w => `
-  <button class="wallet-row" data-id="${w.id}">
-    <span class="wallet-icon" style="background:${w.bg};">${w.icon}</span>
-    <span class="wallet-row-name">${w.name}</span>
-    ${w.tag ? `<span class="wallet-row-tag">${w.tag}</span>` : ''}
-  </button>
-`).join('');
+const INSTALL_LINKS = [
+  { name: 'MetaMask', url: 'https://metamask.io/download/', icon: '🦊' },
+  { name: 'Rabby', url: 'https://rabby.io/', icon: '🐰' },
+  { name: 'Coinbase Wallet', url: 'https://www.coinbase.com/wallet', icon: '🔵' },
+];
+
+function renderWalletList() {
+  if (discoveredWallets.length > 0) {
+    walletList.innerHTML = discoveredWallets.map((w, i) => `
+      <button class="wallet-row" data-i="${i}">
+        <span class="wallet-icon" style="background:#fff;"><img src="${w.info.icon}" alt="" style="width:22px;height:22px;object-fit:contain;"/></span>
+        <span class="wallet-row-name">${w.info.name}</span>
+        <span class="wallet-row-tag">Detected</span>
+      </button>
+    `).join('');
+  } else if (window.ethereum) {
+    walletList.innerHTML = `
+      <button class="wallet-row" data-legacy="1">
+        <span class="wallet-icon" style="background:#D6FF3D;">🦊</span>
+        <span class="wallet-row-name">Browser wallet</span>
+        <span class="wallet-row-tag">Detected</span>
+      </button>
+    `;
+  } else {
+    walletList.innerHTML = `<div class="wallet-modal-sub" style="margin-bottom:10px;">No wallet detected in this browser. Install one:</div>` +
+      INSTALL_LINKS.map(w => `
+        <a class="wallet-row" href="${w.url}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
+          <span class="wallet-icon" style="background:#eee;">${w.icon}</span>
+          <span class="wallet-row-name">${w.name}</span>
+          <span class="wallet-row-tag">Install ↗</span>
+        </a>
+      `).join('');
+  }
+}
+renderWalletList();
 
 let walletModalResolver = null;
 function openWalletModal() {
+  renderWalletList();
   walletModalOverlay.classList.add('show');
   return new Promise(resolve => { walletModalResolver = resolve; });
 }
@@ -488,20 +535,19 @@ function closeWalletModal(result) {
 }
 walletList.addEventListener('click', (e) => {
   const row = e.target.closest('.wallet-row');
-  if (!row) return;
-  const provider = WALLET_OPTIONS.find(w => w.id === row.dataset.id);
-  closeWalletModal(provider);
+  if (!row || row.tagName === 'A') return; // install links open in a new tab normally
+  if (row.dataset.legacy) { closeWalletModal({ info: { name: 'Browser wallet' }, provider: window.ethereum }); return; }
+  closeWalletModal(discoveredWallets[Number(row.dataset.i)]);
 });
 walletModalClose.addEventListener('click', () => closeWalletModal(null));
-walletModalOverlay.addEventListener('click', (e) => {
-  if (e.target === walletModalOverlay) closeWalletModal(null);
-});
+walletModalOverlay.addEventListener('click', (e) => { if (e.target === walletModalOverlay) closeWalletModal(null); });
+
+function truncate(addr) { return addr ? addr.slice(0, 6) + '\u2026' + addr.slice(-4) : ''; }
 
 function renderWalletBtn() {
   if (wallet) {
     walletBtn.classList.add('connected');
-    const icon = walletProvider ? walletProvider.icon + ' ' : '';
-    walletBtn.innerHTML = '<span class="dot"></span>' + icon + wallet;
+    walletBtn.innerHTML = '<span class="dot"></span>' + truncate(wallet) + (wrongNetwork ? ' · wrong network' : '');
   } else {
     walletBtn.classList.remove('connected');
     walletBtn.textContent = 'Connect Wallet';
@@ -509,20 +555,70 @@ function renderWalletBtn() {
   updateMintCtaLabel();
 }
 
-function connectWallet(provider) {
-  walletProvider = provider || null;
-  wallet = '0x' + randHex(4) + '\u2026' + randHex(4);
+async function ensureArcNetwork(provider) {
+  const currentChainId = await provider.request({ method: 'eth_chainId' });
+  if (currentChainId.toLowerCase() === ARC_NETWORK.chainIdHex.toLowerCase()) { wrongNetwork = false; return; }
+  try {
+    await provider.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: ARC_NETWORK.chainIdHex }] });
+    wrongNetwork = false;
+  } catch (switchErr) {
+    if (switchErr && switchErr.code === 4902) {
+      await provider.request({
+        method: 'wallet_addEthereumChain',
+        params: [{
+          chainId: ARC_NETWORK.chainIdHex,
+          chainName: ARC_NETWORK.chainName,
+          nativeCurrency: ARC_NETWORK.nativeCurrency,
+          rpcUrls: ARC_NETWORK.rpcUrls,
+          blockExplorerUrls: ARC_NETWORK.blockExplorerUrls,
+        }],
+      });
+      wrongNetwork = false;
+    } else {
+      wrongNetwork = true; // user declined, or wallet doesn't support programmatic switch
+    }
+  }
+}
+
+function handleAccountsChanged(accounts) {
+  if (!accounts || accounts.length === 0) { disconnectWallet(); return; }
+  wallet = accounts[0];
+  renderWalletBtn();
+}
+function handleChainChanged(chainId) {
+  wrongNetwork = chainId.toLowerCase() !== ARC_NETWORK.chainIdHex.toLowerCase();
+  renderWalletBtn();
+}
+
+async function connectWallet(entry) {
+  const provider = entry.provider;
+  const accounts = await provider.request({ method: 'eth_requestAccounts' });
+  if (!accounts || accounts.length === 0) throw new Error('No account returned');
+  wallet = accounts[0];
+  activeProvider = provider;
+  await ensureArcNetwork(provider);
+  if (provider.on) {
+    provider.on('accountsChanged', handleAccountsChanged);
+    provider.on('chainChanged', handleChainChanged);
+  }
   renderWalletBtn();
 }
 function disconnectWallet() {
+  if (activeProvider && activeProvider.removeListener) {
+    activeProvider.removeListener('accountsChanged', handleAccountsChanged);
+    activeProvider.removeListener('chainChanged', handleChainChanged);
+  }
   wallet = null;
-  walletProvider = null;
+  activeProvider = null;
+  wrongNetwork = false;
   renderWalletBtn();
 }
+
 walletBtn.addEventListener('click', async () => {
   if (wallet) { disconnectWallet(); return; }
-  const provider = await openWalletModal();
-  if (provider) connectWallet(provider);
+  const entry = await openWalletModal();
+  if (!entry) return;
+  try { await connectWallet(entry); } catch (err) { console.error(err); }
 });
 
 /* ---------------- MINT ---------------- */
@@ -531,7 +627,6 @@ const MAX_QTY = 5;
 const SUPPLY_TARGET = 10000;
 let qty = 1;
 
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 function fmt(n) { return (Math.round(n * 100) / 100).toString(); }
 
 function updateQtyUI() {
@@ -544,12 +639,13 @@ updateQtyUI();
 
 function updateMintCtaLabel() {
   const btn = document.getElementById('mintBtn');
-  if (!btn.disabled) btn.textContent = wallet ? 'Mint now ⚡' : 'Connect & Mint ⚡';
+  if (btn.disabled) return;
+  btn.textContent = wallet ? (CONTRACT_ADDRESS ? 'Mint now ⚡' : 'Join the waitlist ⚡') : 'Connect & Mint ⚡';
 }
 
 async function refreshMintStats() {
   try {
-    const res = await window.storage.list('minted:', true);
+    const res = await window.storage.list('waitlist:', true);
     const count = res && res.keys ? res.keys.length : 0;
     document.getElementById('mintedCount').textContent = count.toLocaleString();
     return count;
@@ -561,11 +657,11 @@ async function refreshMintStats() {
 
 async function loadFeed() {
   try {
-    const res = await window.storage.list('minted:', true);
+    const res = await window.storage.list('waitlist:', true);
     const keys = (res && res.keys) ? res.keys.slice(-6).reverse() : [];
     const feedList = document.getElementById('feedList');
     if (keys.length === 0) {
-      feedList.innerHTML = '<div class="feed-empty">No mints yet — be the first.</div>';
+      feedList.innerHTML = '<div class="feed-empty">No wallets on the waitlist yet — be the first.</div>';
       return;
     }
     const items = [];
@@ -577,7 +673,7 @@ async function loadFeed() {
     }
     items.sort((a, b) => new Date(b.ts) - new Date(a.ts));
     feedList.innerHTML = items.map(it =>
-      `<div class="feed-item"><span><b>${it.wallet}</b> minted #${it.tokenId}</span><span>${new Date(it.ts).toLocaleTimeString()}</span></div>`
+      `<div class="feed-item"><span><b>${truncate(it.wallet)}</b> joined the waitlist</span><span>${new Date(it.ts).toLocaleTimeString()}</span></div>`
     ).join('');
   } catch (err) {
     console.error('feed load failed', err);
@@ -590,34 +686,46 @@ mintBtn.addEventListener('click', async () => {
   mintBtn.disabled = true;
   try {
     if (!wallet) {
-      const provider = await openWalletModal();
-      if (!provider) {
+      const entry = await openWalletModal();
+      if (!entry) {
         mintNote.textContent = 'Pick a wallet to continue.';
         mintNote.className = 'form-note err';
-        mintBtn.disabled = false;
-        updateMintCtaLabel();
         return;
       }
-      mintNote.textContent = `Connecting ${provider.name}…`;
+      mintNote.textContent = `Connecting ${entry.info.name || 'wallet'}…`;
       mintNote.className = 'form-note';
-      await sleep(500);
-      connectWallet(provider);
+      await connectWallet(entry);
     }
-    mintNote.textContent = 'Minting…';
-    mintNote.className = 'form-note';
-    const current = await refreshMintStats();
-    for (let i = 0; i < qty; i++) {
-      const tokenId = current + i + 1;
-      const key = 'minted:' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-      await window.storage.set(key, JSON.stringify({ wallet: wallet, tokenId: tokenId, ts: new Date().toISOString() }), true);
+    if (wrongNetwork) {
+      mintNote.textContent = 'Switch to Arc Testnet in your wallet, then try again.';
+      mintNote.className = 'form-note err';
+      return;
     }
-    mintNote.textContent = `Minted ${qty} Arc Punks ⚡ (demo)`;
-    mintNote.className = 'form-note ok';
-    await refreshMintStats();
-    await loadFeed();
+
+    if (!CONTRACT_ADDRESS) {
+      // Contract isn't deployed yet — record the real connected wallet on a waitlist
+      // instead of faking a mint. Replace this block with a real contract call
+      // (ethers.js / viem against activeProvider) once CONTRACT_ADDRESS is set above.
+      mintNote.textContent = 'Saving your spot…';
+      mintNote.className = 'form-note';
+      const key = 'waitlist:' + wallet.toLowerCase();
+      await window.storage.set(key, JSON.stringify({ wallet: wallet, qty: qty, ts: new Date().toISOString() }), true);
+      mintNote.textContent = `You're on the waitlist for ${qty} Arc Punk${qty > 1 ? 's' : ''}. This wallet will be notified when mint goes live.`;
+      mintNote.className = 'form-note ok';
+      await refreshMintStats();
+      await loadFeed();
+      return;
+    }
+
+    // TODO — once CONTRACT_ADDRESS + CONTRACT_ABI are set:
+    // const ethersProvider = new ethers.BrowserProvider(activeProvider);
+    // const signer = await ethersProvider.getSigner();
+    // const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+    // const tx = await contract.mint(qty, { value: ethers.parseUnits(String(MINT_PRICE * qty), 18) });
+    // await tx.wait();
   } catch (err) {
     console.error(err);
-    mintNote.textContent = 'Something went wrong — try again.';
+    mintNote.textContent = (err && err.code === 4001) ? 'Request rejected in wallet.' : 'Something went wrong — try again.';
     mintNote.className = 'form-note err';
   } finally {
     mintBtn.disabled = false;
