@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nova Foundry — Igniting on Arc</title>
+<title>Arc Punks— Igniting on Arc</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -328,7 +328,7 @@
   <nav>
     <div class="brand">
       <div class="brand-mark">N</div>
-      <div class="brand-name">NOVA FOUNDRY</div>
+      <div class="brand-name">Arc Punks</div>
     </div>
     <div class="chain-pill"><span class="chain-dot"></span> ARC L1</div>
   </nav>
@@ -348,7 +348,7 @@
         <span class="badge">Arc L1</span>
       </div>
       <h1 class="display">Not <span class="hl">live</span> yet.<br>Be first to <span class="hl2">ignite</span>.</h1>
-      <p class="sub">Nova Foundry is a 10,000-piece collection forging on Arc — Circle's new USDC-native Layer-1. No contract yet. Complete the tasks below, drop your address, and your spot carries straight through to mint day.</p>
+      <p class="sub">Arc Punks is a 10,000-piece collection forging on Arc — Circle's new USDC-native Layer-1. No contract yet. Complete the tasks below, drop your address, and your spot carries straight through to mint day.</p>
     </div>
 
     <div class="panel task-panel">
@@ -362,7 +362,7 @@
       <div class="section-eyebrow">Step 2</div>
       <h2 class="display" style="font-size:20px; margin-bottom:14px;">Drop your address</h2>
       <form class="form-row" id="waitlistForm" style="margin: 0 0 8px;">
-        <input type="text" id="contactInput" placeholder="Email or wallet address" required />
+        <input type="text" id="contactInput" placeholder="Wallet address" required />
         <button type="submit" class="cta" id="submitBtn" disabled>Join the surge ⚡</button>
       </form>
       <div class="form-note" id="formNote">Complete all tasks above to unlock</div>
@@ -399,14 +399,14 @@
           <div class="p-num">02</div>
           <div class="p-lab">Surge</div>
           <div class="p-title">Whitelist mint</div>
-          <div class="p-desc">15 USDC each · whitelist wallets only · 3 per wallet max.</div>
+          <div class="p-desc"> 7 USDC each · whitelist wallets only · 3 per wallet max.</div>
           <span class="status-pill status-open"><span class="dot"></span> Open</span>
         </div>
         <div class="panel p-card">
           <div class="p-num">03</div>
           <div class="p-lab">Overdrive</div>
           <div class="p-title">Public mint</div>
-          <div class="p-desc">25 USDC each · open to everyone · while supply lasts.</div>
+          <div class="p-desc">10 USDC each · open to everyone · while supply lasts.</div>
           <span class="status-pill status-locked">Locked</span>
         </div>
       </div>
@@ -429,7 +429,7 @@
         <span class="badge">Arc L1</span>
         <span class="badge">USDC gas</span>
       </div>
-      <h2 class="display">Mint on <span style="background:linear-gradient(100deg, var(--spark), var(--magenta)); -webkit-background-clip:text; background-clip:text; color:transparent;">Nova Foundry</span></h2>
+      <h2 class="display">Mint on <span style="background:linear-gradient(100deg, var(--spark), var(--magenta)); -webkit-background-clip:text; background-clip:text; color:transparent;">Arc Punks</span></h2>
       <p class="sub">Simulated mint for demo purposes — Arc mainnet hasn't launched, so nothing here touches a real contract yet.</p>
     </div>
 
@@ -442,7 +442,7 @@
     <div class="mint-layout">
       <div class="panel mint-card">
         <div class="mint-tag">Phase 02 — Surge (whitelist mint)</div>
-        <div class="mint-price">15 <small>USDC / piece</small></div>
+        <div class="mint-price">7 <small>USDC / piece</small></div>
 
         <div class="qty-stepper">
           <button class="qty-btn" id="qtyMinus">–</button>
@@ -450,7 +450,7 @@
           <button class="qty-btn" id="qtyPlus">+</button>
         </div>
 
-        <div class="mint-total">Total: <b id="mintTotal">15</b> USDC · max 3 per wallet</div>
+        <div class="mint-total">Total: <b id="mintTotal">7</b> USDC · max 3 per wallet</div>
         <button class="cta" id="mintBtn" style="width:100%;">Mint now ⚡</button>
         <div class="form-note" id="mintNote">&nbsp;</div>
         <div class="wallet-tag">Demo wallet: <b id="demoWallet">0x0000…0000</b></div>
@@ -484,7 +484,7 @@
         <span class="badge">Arc L1</span>
         <span class="badge">USDC settlement</span>
       </div>
-      <h2 class="display">Nova Foundry <span style="background:linear-gradient(100deg, var(--volt), var(--spark)); -webkit-background-clip:text; background-clip:text; color:transparent;">Market</span></h2>
+      <h2 class="display">Arc Punks <span style="background:linear-gradient(100deg, var(--volt), var(--spark)); -webkit-background-clip:text; background-clip:text; color:transparent;">Market</span></h2>
       <p class="sub">Demo listings — the marketplace goes live for real once Arc mainnet and the collection contract are both deployed.</p>
     </div>
 
@@ -505,7 +505,7 @@
       <a href="#">Discord</a>
       <a href="#">Arc Explorer</a>
     </div>
-    <div class="foot-note">Nova Foundry · placeholder project · replace before launch</div>
+    <div class="foot-note">Arc Punks · placeholder project · replace before launch</div>
   </footer>
 </div>
 
@@ -543,10 +543,10 @@ tabBtns.forEach(btn => {
 
 /* ---------------- WHITELIST TASKS ---------------- */
 const tasks = [
-  { id: 't1', icon: '𝕏', title: 'Follow @NovaFoundry on X', sub: 'Stay updated on mint news', link: 'https://x.com/novafoundry' },
-  { id: 't2', icon: '💬', title: 'Join the Discord', sub: 'Whitelist roles drop here first', link: 'https://discord.gg/novafoundry' },
-  { id: 't3', icon: '🔁', title: 'Repost the launch post', sub: 'Help spread the signal', link: 'https://x.com/novafoundry' },
-  { id: 't4', icon: '👥', title: 'Tag 2 friends in the comments', sub: 'Grow the community', link: 'https://x.com/novafoundry' },
+  { id: 't1', icon: '𝕏', title: 'Follow @Arc Punks on X', sub: 'Stay updated on mint news', link: 'https://x.com/Arc Punks' },
+  { id: 't2', icon: '💬', title: 'Join the Discord', sub: 'Whitelist roles drop here first', link: 'https://discord.gg/Arc Punks' },
+  { id: 't3', icon: '🔁', title: 'Repost the launch post', sub: 'Help spread the signal', link: 'https://x.com/Arc Punks' },
+  { id: 't4', icon: '👥', title: 'Tag 2 friends in the comments', sub: 'Grow the community', link: 'https://x.com/Arc Punks' },
 ];
 const doneTasks = new Set();
 
@@ -600,7 +600,7 @@ updateTaskProgress();
 
 /* ---------------- FAQ ---------------- */
 const faqData = [
-  { q: "What is Nova Foundry?", a: "A 10,000-piece collection being forged for mint on Arc, Circle's new USDC-native Layer-1. This page is the pre-launch whitelist — the smart contract hasn't been deployed yet, since Arc mainnet itself hasn't launched." },
+  { q: "What is Arc Punks?", a: "A 10,000-piece collection being forged for mint on Arc, Circle's new USDC-native Layer-1. This page is the pre-launch whitelist — the smart contract hasn't been deployed yet, since Arc mainnet itself hasn't launched." },
   { q: "What chain does this mint on?", a: "Arc — Circle's Layer-1 built specifically for stablecoin finance. It uses USDC as native gas instead of a volatile token, with sub-second finality. You'll need an Arc-compatible wallet once mainnet goes live." },
   { q: "Is Arc mainnet live?", a: "Not yet. Arc is currently in public testnet, with mainnet expected later in 2026. This site is ready ahead of time so the whitelist carries straight through to launch day." },
   { q: "Why do I need to complete tasks?", a: "Tasks help the earliest supporters find each other and keep the whitelist genuine. They're self-reported for now — full on-chain verification arrives closer to mint." },
@@ -683,7 +683,7 @@ form.addEventListener('submit', async (e) => {
 refreshCount();
 
 /* ---------------- MINT PAGE ---------------- */
-const MINT_PRICE = 15;
+const MINT_PRICE = 7;
 const MAX_QTY = 3;
 const SUPPLY_TARGET = 10000;
 let qty = 1;
@@ -761,7 +761,7 @@ mintBtn.addEventListener('click', async () => {
         ts: new Date().toISOString()
       }), true);
     }
-    mintNote.textContent = `Minted ${qty} Nova Foundry ⚡ (demo)`;
+    mintNote.textContent = `Minted ${qty} Arc Punks ⚡ (demo)`;
     mintNote.className = 'form-note ok';
     await refreshMintStats();
     await loadFeed();
@@ -809,7 +809,7 @@ function renderMarket(filter) {
         <span class="id">#${l.id}</span>
       </div>
       <div class="nft-body">
-        <div class="nft-name">Nova Foundry #${l.id}</div>
+        <div class="nft-name">Arc Punks #${l.id}</div>
         <div class="nft-price-row">
           <span class="nft-price">${l.price} USDC</span>
           <button class="buy-btn" data-id="${l.id}">Buy</button>
